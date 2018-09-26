@@ -21,7 +21,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 bootJar {
-    baseName = 'gs-spring-boot'
+    baseName = 'babyshark-backend'
     version =  '0.1.0'
 }
 
