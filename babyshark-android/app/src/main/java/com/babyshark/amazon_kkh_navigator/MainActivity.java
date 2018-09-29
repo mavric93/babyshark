@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -41,6 +42,16 @@ public class MainActivity extends AppCompatActivity {
     private SlidePanelListAdapter myListAdapter;
     private ExpandableListView expandableListView;
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings:
+                // User chose the "Settings" item, show the app settings UI...
+                return true;
+        }
+
+        return false;
+    }
 
     public void ShowPopupMenu(View v){ //Not in use at the moment can be used to pop-up a new view
         // Initialize a new instance of LayoutInflater service

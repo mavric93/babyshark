@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">Amazon_KKH_Navigator</string>
-    <string name="doctor">Doctor: </string>
-    <string name="purpose">Purpose: </string>
-    <string name="duration">Duration: </string>
-    <string name="details">Other Details: </string>
+    <string name="doctor">Doctor:&#160;</string>
+    <string name="purpose">Purpose:&#160;</string>
+    <string name="duration">Duration:&#160;</string>
+    <string name="details">Other Details:&#160;</string>
+    <string name="settings"></string>
+
+    <!-- &#160; is a representation of whitespace in XML -->
+    <!-- https://stackoverflow.com/questions/10862975/how-to-put-space-character-into-a-string-name-in-xml/10862999 -->
+
 </resources>
