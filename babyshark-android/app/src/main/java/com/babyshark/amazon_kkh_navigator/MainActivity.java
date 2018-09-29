@@ -5,30 +5,24 @@ import android.content.Context;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+
 import android.widget.ExpandableListView;
-import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
+
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
+
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -75,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         currentViewedTask.showAtLocation(slidePanelLayout, Gravity.CENTER,0,0);
 
     }
+
+    WifiManager wifiManager;
+    List<ScanResult> results;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,5 +200,16 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < count; i++){
             expandableListView.collapseGroup(i);
         }
+        
+        init();
     }
+
+    public void init() {
+        // Init Wifi Class
+        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        results = wifiManager.getScanResults();
+        Log.d("All Result", "Result:" + results.toString());
+    }
+
 }
+
