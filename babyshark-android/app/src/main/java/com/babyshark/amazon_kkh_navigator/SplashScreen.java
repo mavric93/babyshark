@@ -24,7 +24,7 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
 
                 //Do any action here.
-                Intent mySuperIntent = new Intent(SplashScreen.this, MainActivity.class);
+                Intent mySuperIntent = new Intent(SplashScreen.this, ScanQR.class);
                 startActivity(mySuperIntent);
 
                 /* The finish() is for exiting the app when back button pressed
