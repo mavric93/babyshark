@@ -1,5 +1,6 @@
 package com.babyshark.amazon_kkh_navigator;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public void ShowPopupMenu(View v, int layouttoshow){ //Not in use at the moment can be used to pop-up a new view
+    public void ShowPopupMenu(int layouttoshow){ //Not in use at the moment can be used to pop-up a new view
         // Initialize a new instance of LayoutInflater service
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
@@ -89,10 +90,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+
+        if(actionBar!=null){
+            actionBar.setTitle(R.string.main_activity);
+            actionBar.setCustomView(R.layout.actionbar_custom);
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setDisplayUseLogoEnabled(false);
+            actionBar.setDisplayShowHomeEnabled(false);
+            //https://stackoverflow.com/questions/27612424/v7-21-actionbaractivity-not-showing-the-app-main-icon-on-the-left
+            //https://stackoverflow.com/questions/16026007/remove-padding-around-action-bar-left-icon-on-android-4-0
+            actionBar.setIcon(R.drawable.kkh_logo);
+        }
+
         setContentView(R.layout.activity_main);
 
         mContext = getApplicationContext();
         mActivity = MainActivity.this;
+
+
+
 
         HardCodedTaskDataInit();
 

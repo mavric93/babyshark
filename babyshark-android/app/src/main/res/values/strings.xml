@@ -5,7 +5,13 @@
     <string name="duration">Duration:&#160;</string>
     <string name="details">Other Details:&#160;</string>
 
-    <string name="action1">Action 1</string>
+    <string name="action1">Help, I am Lost!</string>
+    <string name="action2">Cancel Appointment</string>
+    <string name="action3">Payment Information</string>
+    <string name="action4">Contact Support</string>
+
+    <string name="main_activity">Dashboard</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
 
     <!-- &#160; is a representation of whitespace in XML -->
     <!-- https://stackoverflow.com/questions/10862975/how-to-put-space-character-into-a-string-name-in-xml/10862999 -->

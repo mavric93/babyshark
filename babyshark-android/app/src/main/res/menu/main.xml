@@ -5,9 +5,28 @@
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context="com.babyshark.amazon_kkh_navigator.MainActivity" >
+
         <item
             app:showAsAction="never"
             android:title="@string/action1"
             android:id="@+id/action_settings1">
+        </item>
+
+        <item
+            app:showAsAction="never"
+            android:title="@string/action2"
+            android:id="@+id/action_settings2">
+        </item>
+
+        <item
+            app:showAsAction="never"
+            android:title="@string/action3"
+            android:id="@+id/action_settings3">
+        </item>
+
+        <item
+            app:showAsAction="never"
+            android:title="@string/action4"
+            android:id="@+id/action_settings4">
         </item>
     </menu>

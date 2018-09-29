@@ -1,6 +1,6 @@
 package com.babyshark.amazon_kkh_navigator;
 
-public class Task {
+public final class Task {
 
     private Task(){}
 
