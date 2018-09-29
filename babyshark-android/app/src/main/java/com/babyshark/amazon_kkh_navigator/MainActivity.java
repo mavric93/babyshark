@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.settings:
+            case R.id.action_settings1:
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
         }
@@ -271,6 +272,13 @@ public class MainActivity extends AppCompatActivity {
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         results = wifiManager.getScanResults();
         Log.d("All Result", "Result:" + results.toString());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu( Menu menu )
+    {
+        getMenuInflater().inflate( R.menu.main, menu );
+        return true;
     }
 
 }

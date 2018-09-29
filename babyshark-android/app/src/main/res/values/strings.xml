@@ -4,7 +4,8 @@
     <string name="purpose">Purpose:&#160;</string>
     <string name="duration">Duration:&#160;</string>
     <string name="details">Other Details:&#160;</string>
-    <string name="settings"></string>
+
+    <string name="action1">Action 1</string>
 
     <!-- &#160; is a representation of whitespace in XML -->
     <!-- https://stackoverflow.com/questions/10862975/how-to-put-space-character-into-a-string-name-in-xml/10862999 -->
