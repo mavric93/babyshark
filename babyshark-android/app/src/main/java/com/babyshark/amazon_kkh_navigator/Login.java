@@ -8,21 +8,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
-public class ScanQR extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan_qr);
+        setContentView(R.layout.activity_login);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
 
         if(actionBar!=null){
-            actionBar.setTitle(R.string.title_activity_scan_qr);
+            actionBar.setTitle(R.string.title_activity_login);
             actionBar.setCustomView(R.layout.actionbar_custom);
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayShowCustomEnabled(true);
@@ -31,23 +30,23 @@ public class ScanQR extends AppCompatActivity {
             actionBar.setIcon(R.drawable.kkh_logo);
         }
 
-        Button scanner = findViewById(R.id.scanner);
+        Button login = findViewById(R.id.login);
 
-        if(scanner!=null){
-            scanner.setOnClickListener(new View.OnClickListener() {
+        if(login!=null){
+            login.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View view) {
-                    ScanQRCode();
+                    login();
                 }
             });
         }
     }
 
-    private void ScanQRCode(){
+    private void login(){
 
-        Intent login_intent = new Intent(ScanQR.this, Login.class);
-        startActivity(login_intent);
+        Intent mainactivity_intent = new Intent(Login.this, MainActivity.class);
+        startActivity(mainactivity_intent);
 
         finish();
     }

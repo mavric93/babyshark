@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ADD8E6"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Login"
+    tools:showIn="@layout/activity_login">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:padding="20dp"
+            android:id="@+id/info1"
+            android:text="Please Provide Your NRIC"
+            android:textSize="25dp"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textStyle="italic"
+            android:padding="20dp"
+            android:layout_below="@+id/info1"
+            android:textSize="25dp"
+            android:textAlignment="center"
+            android:text="This allows us to fetch your\n information from the system"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:layout_margin="1dp"
+            android:background="#3000"
+            android:id="@+id/nric"
+            android:textSize="25dp"
+            android:layout_centerInParent="true"
+            android:textAlignment="center"
+            android:hint="NRIC Here"
+            android:layout_width="300dp"
+            android:layout_height="60dp" />
+
+        <EditText
+            android:background="#3000"
+            android:layout_margin="1dp"
+            android:id="@+id/contact"
+            android:layout_below="@id/nric"
+            android:textSize="25dp"
+            android:textAlignment="center"
+            android:layout_centerInParent="true"
+            android:hint="Contact Number"
+            android:layout_width="300dp"
+            android:layout_height="60dp" />
+
+        <Button
+            android:id="@+id/login"
+            android:layout_margin="10dp"
+            android:textStyle="italic"
+            android:text="Login"
+            android:textSize="25dp"
+            android:textColor="	#E6E6FA"
+            android:background="@drawable/roundedbutton"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/contact"
+            android:layout_width="300dp"
+            android:layout_height="100dp" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
