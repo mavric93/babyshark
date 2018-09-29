@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Amazon_KKH_Navigator</string>
+    <string name="doctor">Doctor: </string>
+    <string name="purpose">Purpose: </string>
+    <string name="duration">Duration: </string>
+    <string name="details">Other Details: </string>
 </resources>

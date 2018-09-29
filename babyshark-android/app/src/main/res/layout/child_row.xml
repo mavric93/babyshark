@@ -5,12 +5,14 @@
 
     <TextView
         android:id="@+id/doctor"
+        android:paddingLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/taskpurpose"
+        android:paddingLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/doctor"
@@ -18,6 +20,7 @@
 
     <TextView
         android:id="@+id/duration"
+        android:paddingLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/taskpurpose"
@@ -25,6 +28,7 @@
 
     <TextView
         android:id="@+id/otherdetails"
+        android:paddingLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/duration"

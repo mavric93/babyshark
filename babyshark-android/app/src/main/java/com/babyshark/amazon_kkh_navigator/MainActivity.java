@@ -16,7 +16,9 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import android.net.wifi.ScanResult;
@@ -30,17 +32,17 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext;
     private Activity mActivity;
 
-    private PopupWindow currentViewedTask;
+    private PopupWindow currentViewedTask; //Not Used At the moment
     SlidingUpPanelLayout slidePanelLayout;
 
-    private LinkedHashMap<String, HeaderInfo> patientTasks = new LinkedHashMap<>(); //Maps Task Name to respective Task Details
-    private ArrayList<HeaderInfo> _taskList = new ArrayList<>(); // Used to handle populating the expandable Task List
+    private LinkedHashMap<String, HeaderInfo> patientTasks = new LinkedHashMap<>(); //Maps Task Name to respective Task Details for tracking purposes
+    private ArrayList<HeaderInfo> _taskList = new ArrayList<HeaderInfo>(); // Used to handle populating the ExpandableTaskList
 
     private SlidePanelListAdapter myListAdapter;
     private ExpandableListView expandableListView;
 
 
-    public void ShowPopupMenu(View v){
+    public void ShowPopupMenu(View v){ //Not in use at the moment can be used to pop-up a new view
         // Initialize a new instance of LayoutInflater service
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
@@ -67,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         currentViewedTask.showAtLocation(slidePanelLayout, Gravity.CENTER,0,0);
-
     }
 
     WifiManager wifiManager;
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
         addTask(Task.values[0][0],Task.values[0][1],Task.values[0][2],Task.values[0][3],Task.values[0][4],Task.values[0][5],Task.values[0][6], -1);
         addTask(Task.values[1][0],Task.values[1][1],Task.values[1][2],Task.values[1][3],Task.values[1][4],Task.values[1][5],Task.values[1][6], -1);
-        //addTask(Task.values[2][0],Task.values[2][1],Task.values[2][2],Task.values[2][3],Task.values[2][4],Task.values[2][5],Task.values[2][6], -1);
+        addTask(Task.values[2][0],Task.values[2][1],Task.values[2][2],Task.values[2][3],Task.values[2][4],Task.values[2][5],Task.values[2][6], -1);
     }
 
     private void GenerateSlidePanelContentButtons(){
@@ -99,9 +100,11 @@ public class MainActivity extends AppCompatActivity {
         expandableListView = (ExpandableListView) findViewById(R.id.list); //References the ListView in activity_main.xml
 
         //create the adapter by passing your ArrayList data
-        myListAdapter = new SlidePanelListAdapter(mContext, _taskList);
+        myListAdapter = new SlidePanelListAdapter(mContext, (ArrayList<HeaderInfo>) (ArrayList<HeaderInfo>)_taskList);
 
         HardCodedTaskDataInit();
+
+        expandableListView.setGroupIndicator(null);
 
         //attach the adapter to the list
         expandableListView.setAdapter(myListAdapter);
@@ -157,10 +160,30 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private boolean removeTask(String taskName){
+        //Check the hash map if the task exists
+        HeaderInfo headerInfo = patientTasks.get(taskName);
+
+        if(headerInfo!=null){
+            for(int i=0;i<_taskList.size();i++){
+                if(_taskList.get(i).getName() == headerInfo.getName()){
+                    _taskList.remove(i);
+                    patientTasks.remove(taskName);
+                    myListAdapter.notifyDataSetChanged();
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     private int addTask(String taskName, String taskStatus, String distFromCurrentLoc, String taskPurpose, String doctorName, String duration, String otherDetails, int index){
 
         //distFromCurrentLoc is a value of the distance from the current task location to the next.
         //This Method is also responsible for adding DetailInfo to a Task
+
+        //After The OnCreate Method, any calls to the addTask Method must be accompanied by a call to the myListAdapter.notifyDataSetChanged() Method
 
         int groupPosition = 0;
 

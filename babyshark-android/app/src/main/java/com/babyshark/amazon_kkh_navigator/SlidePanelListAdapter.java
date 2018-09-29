@@ -47,16 +47,16 @@ public class SlidePanelListAdapter extends BaseExpandableListAdapter{
         }
 
         TextView doctor = (TextView) view.findViewById(R.id.doctor);
-        doctor.setText(detailInfo.getDoctorName().trim());
+        doctor.setText(R.string.doctor + detailInfo.getDoctorName().trim());
 
         TextView taskPurpose = (TextView) view.findViewById(R.id.taskpurpose);
-        taskPurpose.setText(detailInfo.getTaskPurpose().trim());
+        taskPurpose.setText(R.string.purpose + detailInfo.getTaskPurpose().trim());
 
         TextView duration = (TextView) view.findViewById(R.id.duration);
-        duration.setText(detailInfo.getDuration().trim());
+        duration.setText(R.string.duration + detailInfo.getDuration().trim());
 
         TextView otherdetails = (TextView) view.findViewById(R.id.otherdetails);
-        otherdetails.setText(detailInfo.getOtherDetails().trim());
+        otherdetails.setText(R.string.details + detailInfo.getOtherDetails().trim());
 
         Log.e("Child View Get", "");
 
