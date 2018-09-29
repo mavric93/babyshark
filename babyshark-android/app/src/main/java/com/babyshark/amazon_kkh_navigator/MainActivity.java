@@ -53,12 +53,12 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public void ShowPopupMenu(View v){ //Not in use at the moment can be used to pop-up a new view
+    public void ShowPopupMenu(View v, int layouttoshow){ //Not in use at the moment can be used to pop-up a new view
         // Initialize a new instance of LayoutInflater service
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
         // Inflate the custom layout/view
-        View customView = inflater.inflate(R.layout.taskpopupwindow,null);
+        View customView = inflater.inflate(layouttoshow,null);
 
         currentViewedTask = new PopupWindow(
                 customView,
@@ -93,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
         mContext = getApplicationContext();
         mActivity = MainActivity.this;
 
+        HardCodedTaskDataInit();
+
         GenerateSlidePanelContentButtons();
     }
 
@@ -112,8 +114,6 @@ public class MainActivity extends AppCompatActivity {
 
         //create the adapter by passing your ArrayList data
         myListAdapter = new SlidePanelListAdapter(mContext, (ArrayList<HeaderInfo>) (ArrayList<HeaderInfo>)_taskList);
-
-        HardCodedTaskDataInit();
 
         expandableListView.setGroupIndicator(null);
 
@@ -141,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
         public boolean onChildClick(ExpandableListView parent, View v,
                                     int groupPosition, int childPosition, long id) {
 
+    //Listens for when child elements of a Task is clicked
+
             parent.collapseGroup(groupPosition);
 
             //get the group header
@@ -157,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onGroupClick(ExpandableListView parent, View v,
                                     int groupPosition, long id) {
+
+            // Detects when a task Button is clicked
 
             //get the group header
             HeaderInfo headerInfo = _taskList.get(groupPosition);
