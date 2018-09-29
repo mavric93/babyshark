@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private Activity mActivity;
 
     private PopupWindow currentViewedTask; //Not Used At the moment
-    SlidingUpPanelLayout slidePanelLayout;
 
     private LinkedHashMap<String, HeaderInfo> patientTasks = new LinkedHashMap<>(); //Maps Task Name to respective Task Details for tracking purposes
     private ArrayList<HeaderInfo> _taskList = new ArrayList<HeaderInfo>(); // Used to handle populating the ExpandableTaskList
@@ -47,8 +46,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings1:
-                // User chose the "Settings" item, show the app settings UI...
+            case R.id.action_settings3: //Show Payment Options Button
+
+                ShowPopupMenu(R.layout.payment_hardcodedview);
                 return true;
         }
 
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         // Initialize a new instance of LayoutInflater service
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
+        //https://stackoverflow.com/questions/24997930/trouble-working-with-showatlocationview-int-int-int-for-popupwindow
         // Inflate the custom layout/view
         View customView = inflater.inflate(layouttoshow,null);
 
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        currentViewedTask.showAtLocation(slidePanelLayout, Gravity.CENTER,0,0);
+        currentViewedTask.showAtLocation(findViewById(R.id.sliding_layout), Gravity.BOTTOM,0,0);
     }
 
     WifiManager wifiManager;
@@ -89,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
+        super.onCreate(savedInstanceState);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
 
         if(actionBar!=null){
@@ -109,8 +110,6 @@ public class MainActivity extends AppCompatActivity {
 
         mContext = getApplicationContext();
         mActivity = MainActivity.this;
-
-
 
 
         HardCodedTaskDataInit();
