@@ -81,9 +81,7 @@ public class MainActivity extends AppCompatActivity {
         mContext = getApplicationContext();
         mActivity = MainActivity.this;
 
-        HardCodedTaskDataInit();
         GenerateSlidePanelContentButtons();
-        showCurrentTask();
     }
 
     private void HardCodedTaskDataInit(){ //We Hardcode the Task HeaderInfo and DetailInfo within this method
@@ -92,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         addTask(Task.values[0][0],Task.values[0][1],Task.values[0][2],Task.values[0][3],Task.values[0][4],Task.values[0][5],Task.values[0][6], -1);
         addTask(Task.values[1][0],Task.values[1][1],Task.values[1][2],Task.values[1][3],Task.values[1][4],Task.values[1][5],Task.values[1][6], -1);
-        addTask(Task.values[2][0],Task.values[2][1],Task.values[2][2],Task.values[2][3],Task.values[2][4],Task.values[2][5],Task.values[2][6], -1);
+        //addTask(Task.values[2][0],Task.values[2][1],Task.values[2][2],Task.values[2][3],Task.values[2][4],Task.values[2][5],Task.values[2][6], -1);
     }
 
     private void GenerateSlidePanelContentButtons(){
@@ -101,13 +99,17 @@ public class MainActivity extends AppCompatActivity {
         expandableListView = (ExpandableListView) findViewById(R.id.list); //References the ListView in activity_main.xml
 
         //create the adapter by passing your ArrayList data
-        myListAdapter = new SlidePanelListAdapter(MainActivity.this, _taskList);
+        myListAdapter = new SlidePanelListAdapter(mContext, _taskList);
+
+        HardCodedTaskDataInit();
 
         //attach the adapter to the list
         expandableListView.setAdapter(myListAdapter);
+        collapseAll();
+        showCurrentTask();
 
-        //listener for child row click
-        expandableListView.setOnChildClickListener(myListItemClicked);
+        expandableListView.setOnChildClickListener(myListItemClicked); // Listener for child row click
+        expandableListView.setOnGroupClickListener(myListGroupClicked); // Listener for group heading click
     }
 
     private boolean showCurrentTask(){
@@ -121,17 +123,37 @@ public class MainActivity extends AppCompatActivity {
     //our child listener
     private ExpandableListView.OnChildClickListener myListItemClicked =  new ExpandableListView.OnChildClickListener() {
 
+        @Override
         public boolean onChildClick(ExpandableListView parent, View v,
                                     int groupPosition, int childPosition, long id) {
 
-            collapseAll();
-            showCurrentTask();
+            parent.collapseGroup(groupPosition);
 
             //get the group header
             HeaderInfo headerInfo = _taskList.get(groupPosition);
             //get the child info
             DetailInfo detailInfo =  headerInfo.getDetailList().get(childPosition);
             return false;
+        }
+    };
+
+    //our group listener
+    private ExpandableListView.OnGroupClickListener myListGroupClicked =  new ExpandableListView.OnGroupClickListener() {
+
+        @Override
+        public boolean onGroupClick(ExpandableListView parent, View v,
+                                    int groupPosition, long id) {
+
+            //get the group header
+            HeaderInfo headerInfo = _taskList.get(groupPosition);
+
+            if(!parent.isGroupExpanded(groupPosition)){
+                return false;
+            }
+            else{
+                parent.collapseGroup(groupPosition);
+                return true;
+            }
         }
     };
 
@@ -149,25 +171,24 @@ public class MainActivity extends AppCompatActivity {
         if(headerInfo == null){
 
             ArrayList<DetailInfo> details = new ArrayList<DetailInfo>();
-            details.add(new DetailInfo(taskPurpose, doctorName, duration, otherDetails));
 
             headerInfo = new HeaderInfo(taskName,  taskStatus,  distFromCurrentLoc, details);
             patientTasks.put(taskName, headerInfo);
 
             if(index <0 || index > _taskList.size()-1){
                 _taskList.add(headerInfo);
-                groupPosition = _taskList.size()-1;
             }
             else{
                 _taskList.add(index,headerInfo);
-                groupPosition = index;
             }
-
         }
-        else { // If a Task already exists we just add DetailInfo
 
             if(taskStatus != headerInfo.getTaskStatus()){ //Update Task Status if value is different from input
                 headerInfo.setTaskStatus(taskStatus);
+
+                if(patientTasks.containsKey(taskName)){
+                    patientTasks.put(taskName,headerInfo);
+                }
             }
 
             ArrayList<DetailInfo> detailList = headerInfo.getDetailList();
@@ -179,9 +200,12 @@ public class MainActivity extends AppCompatActivity {
             detailList.add(detailInfo);
             headerInfo.setDetailList(detailList);
 
-            //find the group position inside the list
+            if(patientTasks.containsKey(taskName)){
+                patientTasks.put(taskName, headerInfo);
+            }
+
+        //find the group position inside the list
             groupPosition = _taskList.indexOf(headerInfo);
-        }
 
         return groupPosition;
     }
@@ -200,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < count; i++){
             expandableListView.collapseGroup(i);
         }
-        
+
         init();
     }
 

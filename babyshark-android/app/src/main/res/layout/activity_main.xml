@@ -54,7 +54,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:text="Hello There"
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -62,15 +61,6 @@
                 android:textSize="14sp"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"/>
-
-           <!-- <Button
-                android:id="@+id/follow"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="14sp"
-                android:gravity="center_vertical|right"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"/> -->
 
         </LinearLayout>
 

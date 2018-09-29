@@ -3,6 +3,7 @@ package com.babyshark.amazon_kkh_navigator;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,25 +36,29 @@ public class SlidePanelListAdapter extends BaseExpandableListAdapter{
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
                              View view, ViewGroup parent) {
 
+        Log.e("I happened", "Message me");
         DetailInfo detailInfo = (DetailInfo) getChild(groupPosition, childPosition);
 
         if (view == null) {
             LayoutInflater infalInflater = (LayoutInflater)
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = infalInflater.inflate(R.layout.child_row, null);
+            Log.e("Creating new Child View", "");
         }
 
         TextView doctor = (TextView) view.findViewById(R.id.doctor);
         doctor.setText(detailInfo.getDoctorName().trim());
 
         TextView taskPurpose = (TextView) view.findViewById(R.id.taskpurpose);
-        taskPurpose.setText(detailInfo.getTaskPurpose());
+        taskPurpose.setText(detailInfo.getTaskPurpose().trim());
 
         TextView duration = (TextView) view.findViewById(R.id.duration);
-        duration.setText(detailInfo.getDuration());
+        duration.setText(detailInfo.getDuration().trim());
 
         TextView otherdetails = (TextView) view.findViewById(R.id.otherdetails);
-        otherdetails.setText(detailInfo.getOtherDetails());
+        otherdetails.setText(detailInfo.getOtherDetails().trim());
+
+        Log.e("Child View Get", "");
 
         return view;
     }

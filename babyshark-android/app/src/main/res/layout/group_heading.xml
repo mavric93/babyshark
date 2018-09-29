@@ -1,33 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="55dip">
 
-    <TextView
-        android:id="@+id/heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="30sp"
-        android:paddingLeft="30sp"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+<TableLayout
+    android:weightSum="2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_toRightOf="@+id/heading"
-        android:paddingStart="30sp"
-        android:paddingLeft="30sp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <TableRow>
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="30sp"
+            android:paddingLeft="30sp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/taskstatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="30sp"
-        android:paddingLeft="30sp"
-        android:layout_toRightOf="@+id/heading"
-        android:layout_below="@+id/distance"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:layout_weight="1"
+            android:paddingStart="30sp"
+            android:paddingLeft="30sp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </TableRow>
 
-</RelativeLayout>
+    <TableRow>
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="30sp"
+            android:paddingLeft="30sp" />
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/taskstatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="30sp"
+            android:paddingLeft="30sp"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+
+</TableLayout>
+
+
+</LinearLayout>
