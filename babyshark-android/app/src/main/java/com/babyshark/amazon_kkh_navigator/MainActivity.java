@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
         mContext = getApplicationContext();
         mActivity = MainActivity.this;
-
+        initNavigation();
         HardCodedTaskDataInit();
 
         GenerateSlidePanelContentButtons(); // This only Generates Content for the ExpandableListView
@@ -273,16 +273,10 @@ public class MainActivity extends AppCompatActivity {
             expandableListView.collapseGroup(i);
         }
 
-        init();
     }
-
-    public void init() {
-        // Init Wifi Class
-        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        results = wifiManager.getScanResults();
-        Log.d("All Result", "Result:" + results.toString());
+    public void initNavigation(){
+        Navigation navigation = new Navigation(this);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);

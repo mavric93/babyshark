@@ -17,6 +17,11 @@
 
     <string name="title_xml_payment">Payment</string>
 
+    <string name="map_level_2"> 2 </string>
+    <string name="map_level_1"> 1 </string>
+    <string name="map_level_B1"> B1 </string>
+
+
     <!-- &#160; is a representation of whitespace in XML -->
     <!-- https://stackoverflow.com/questions/10862975/how-to-put-space-character-into-a-string-name-in-xml/10862999 -->
 

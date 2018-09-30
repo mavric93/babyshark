@@ -1,3 +1,9 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="btn_level_width">50dp</dimen>
+    <dimen name="btn_level_left_margin">10dp</dimen>
+    <dimen name="btn_level_btm_margin">0dp</dimen>
+    <dimen name="btn_level_btm__margin_clear_slideup">100dp</dimen>
+
 </resources>
