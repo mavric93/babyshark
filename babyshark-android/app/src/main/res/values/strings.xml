@@ -11,8 +11,7 @@
     <string name="action4">Contact Support</string>
 
     <string name="main_activity">Dashboard</string>
-    <string name="title_activity_splash_screen">SplashScreen</string>
-    <string name="title_activity_scan_qr">ScanQR</string>
+    <string name="title_activity_scan_qr">Scan QR</string>
     <string name="title_activity_login">Login</string>
 
     <string name="title_xml_payment">Payment</string>

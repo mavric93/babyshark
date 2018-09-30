@@ -13,13 +13,13 @@
         android:src="@drawable/kkh_logo" />
 
     <TextView
+        android:id="@+id/actionbar_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
         android:paddingStart="10dp"
         android:layout_margin="2dp"
         android:textStyle="italic"
-        android:text="Dashboard"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>

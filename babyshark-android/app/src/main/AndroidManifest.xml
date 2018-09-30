@@ -15,8 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:icon="@drawable/kkh_logo"
-            android:label="Dashboard" />
+            android:icon="@drawable/kkh_logo" />
         <activity
             android:name=".SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
