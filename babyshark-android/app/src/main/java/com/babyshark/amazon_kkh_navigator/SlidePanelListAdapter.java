@@ -36,14 +36,12 @@ public class SlidePanelListAdapter extends BaseExpandableListAdapter{
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
                              View view, ViewGroup parent) {
 
-        Log.e("I happened", "Message me");
         DetailInfo detailInfo = (DetailInfo) getChild(groupPosition, childPosition);
 
         if (view == null) {
             LayoutInflater infalInflater = (LayoutInflater)
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = infalInflater.inflate(R.layout.child_row, null);
-            Log.e("Creating new Child View", "");
         }
 
         TextView doctor = (TextView) view.findViewById(R.id.doctor);
@@ -58,7 +56,6 @@ public class SlidePanelListAdapter extends BaseExpandableListAdapter{
         TextView otherdetails = (TextView) view.findViewById(R.id.otherdetails);
         otherdetails.setText(context.getResources().getString(R.string.details) + detailInfo.getOtherDetails().trim());
 
-        Log.e("Child View Get", "");
 
         return view;
     }

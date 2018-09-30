@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import android.widget.ExpandableListView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -34,13 +35,15 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext;
     private Activity mActivity;
 
-    private PopupWindow currentViewedTask; //Not Used At the moment
+    private PopupWindow currentViewedTask;
 
     private LinkedHashMap<String, HeaderInfo> patientTasks = new LinkedHashMap<>(); //Maps Task Name to respective Task Details for tracking purposes
-    private ArrayList<HeaderInfo> _taskList = new ArrayList<HeaderInfo>(); // Used to handle populating the ExpandableTaskList
+    private ArrayList<HeaderInfo> _queuedTaskList = new ArrayList<HeaderInfo>(); // Used to handle populating the ExpandableTaskList
 
     private SlidePanelListAdapter myListAdapter;
     private ExpandableListView expandableListView;
+
+    private String currentActiveTaskName; // This is to keep track of the current active task so that we can update the respective views
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -110,19 +113,21 @@ public class MainActivity extends AppCompatActivity {
         mContext = getApplicationContext();
         mActivity = MainActivity.this;
 
-
         HardCodedTaskDataInit();
 
-        GenerateSlidePanelContentButtons();
+        GenerateSlidePanelContentButtons(); // This only Generates Content for the ExpandableListView
+        //The UI for the currenttasks has to be generated seperately using the updateCurrentActiveTaskView() Method
+        updateCurrentActiveTaskView(patientTasks.get(currentActiveTaskName));
     }
 
     private void HardCodedTaskDataInit() { //We Hardcode the Task HeaderInfo and DetailInfo within this method
 
         //This Method Should Be Run Before GenerateSlidePanelContentButtons() to properly init the values used by GenerateSlidePanelContentButtons() Method
 
-        addTask(Task.values[0][0], Task.values[0][1], Task.values[0][2], Task.values[0][3], Task.values[0][4], Task.values[0][5], Task.values[0][6], -1);
-        addTask(Task.values[1][0], Task.values[1][1], Task.values[1][2], Task.values[1][3], Task.values[1][4], Task.values[1][5], Task.values[1][6], -1);
-        addTask(Task.values[2][0], Task.values[2][1], Task.values[2][2], Task.values[2][3], Task.values[2][4], Task.values[2][5], Task.values[2][6], -1);
+        addTask(Task.values[0][0], Task.values[0][1], Task.values[0][2], Task.values[0][3], Task.values[0][4], Task.values[0][5], Task.values[0][6], -1, false);
+        addTask(Task.values[1][0], Task.values[1][1], Task.values[1][2], Task.values[1][3], Task.values[1][4], Task.values[1][5], Task.values[1][6], -1, true);
+        addTask(Task.values[2][0], Task.values[2][1], Task.values[2][2], Task.values[2][3], Task.values[2][4], Task.values[2][5], Task.values[2][6], -1, true);
+        addTask(Task.values[3][0], Task.values[3][1], Task.values[3][2], Task.values[3][3], Task.values[3][4], Task.values[3][5], Task.values[3][6], -1, true);
     }
 
     private void GenerateSlidePanelContentButtons() {
@@ -131,25 +136,15 @@ public class MainActivity extends AppCompatActivity {
         expandableListView = (ExpandableListView) findViewById(R.id.list); //References the ListView in activity_main.xml
 
         //create the adapter by passing your ArrayList data
-        myListAdapter = new SlidePanelListAdapter(mContext, (ArrayList<HeaderInfo>) (ArrayList<HeaderInfo>) _taskList);
+        myListAdapter = new SlidePanelListAdapter(mContext, (ArrayList<HeaderInfo>) (ArrayList<HeaderInfo>) _queuedTaskList);
 
         expandableListView.setGroupIndicator(null);
 
         //attach the adapter to the list
         expandableListView.setAdapter(myListAdapter);
-        collapseAll();
-        showCurrentTask();
 
         expandableListView.setOnChildClickListener(myListItemClicked); // Listener for child row click
         expandableListView.setOnGroupClickListener(myListGroupClicked); // Listener for group heading click
-    }
-
-    private boolean showCurrentTask() {
-        if (expandableListView.getCount() > 0) {
-            expandableListView.expandGroup(0);
-            return true;
-        }
-        return false;
     }
 
     //our child listener
@@ -160,11 +155,9 @@ public class MainActivity extends AppCompatActivity {
                                     int groupPosition, int childPosition, long id) {
 
             //Listens for when child elements of a Task is clicked
-
             parent.collapseGroup(groupPosition);
-
             //get the group header
-            HeaderInfo headerInfo = _taskList.get(groupPosition);
+            HeaderInfo headerInfo = _queuedTaskList.get(groupPosition);
             //get the child info
             DetailInfo detailInfo = headerInfo.getDetailList().get(childPosition);
             return false;
@@ -175,13 +168,10 @@ public class MainActivity extends AppCompatActivity {
     private ExpandableListView.OnGroupClickListener myListGroupClicked = new ExpandableListView.OnGroupClickListener() {
 
         @Override
-        public boolean onGroupClick(ExpandableListView parent, View v,
-                                    int groupPosition, long id) {
-
+        public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
             // Detects when a task Button is clicked
-
             //get the group header
-            HeaderInfo headerInfo = _taskList.get(groupPosition);
+            HeaderInfo headerInfo = _queuedTaskList.get(groupPosition);
 
             if (!parent.isGroupExpanded(groupPosition)) {
                 return false;
@@ -193,16 +183,21 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private boolean removeTask(String taskName) {
+
+        if(taskName==currentActiveTaskName){
+            getAndSetNextTask();
+        }
+
         //Check the hash map if the task exists
         HeaderInfo headerInfo = patientTasks.get(taskName);
 
         if (headerInfo != null) {
-            for (int i = 0; i < _taskList.size(); i++) {
-                if (_taskList.get(i).getName() == headerInfo.getName()) {
-                    _taskList.remove(i);
+
+            for (int i = 0; i < _queuedTaskList.size(); i++) {
+                if (_queuedTaskList.get(i).getName() == headerInfo.getName()) {
+                    _queuedTaskList.remove(i);
                     patientTasks.remove(taskName);
                     myListAdapter.notifyDataSetChanged();
-                    showCurrentTask();
                     return true;
                 }
             }
@@ -211,14 +206,11 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private int addTask(String taskName, String taskStatus, String distFromCurrentLoc, String taskPurpose, String doctorName, String duration, String otherDetails, int index) {
+    private void addTask(String taskName, String taskStatus, String distFromCurrentLoc, String taskPurpose, String doctorName, String duration, String otherDetails, int index, boolean queueTask) {
 
         //distFromCurrentLoc is a value of the distance from the current task location to the next.
         //This Method is also responsible for adding DetailInfo to a Task
-
         //After The OnCreate Method, any calls to the addTask Method must be accompanied by a call to the myListAdapter.notifyDataSetChanged() Method
-
-        int groupPosition = 0;
 
         //Check the hash map if the task already exists
         HeaderInfo headerInfo = patientTasks.get(taskName);
@@ -231,10 +223,14 @@ public class MainActivity extends AppCompatActivity {
             headerInfo = new HeaderInfo(taskName, taskStatus, distFromCurrentLoc, details);
             patientTasks.put(taskName, headerInfo);
 
-            if (index < 0 || index > _taskList.size() - 1) {
-                _taskList.add(headerInfo);
+            if (index < 0 || index > _queuedTaskList.size() - 1) {
+                if(queueTask){
+                    _queuedTaskList.add(headerInfo);
+                }
             } else {
-                _taskList.add(index, headerInfo);
+                if(queueTask){
+                    _queuedTaskList.add(index, headerInfo);
+                }
             }
         }
 
@@ -248,8 +244,6 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<DetailInfo> detailList = headerInfo.getDetailList();
 
-        int listSize = detailList.size(); //Size of the children list
-
         DetailInfo detailInfo = new DetailInfo(taskPurpose, doctorName, duration, otherDetails); //Create a new child Detail and add that to the group
 
         detailList.add(detailInfo);
@@ -259,10 +253,9 @@ public class MainActivity extends AppCompatActivity {
             patientTasks.put(taskName, headerInfo);
         }
 
-        //find the group position inside the list
-        groupPosition = _taskList.indexOf(headerInfo);
-
-        return groupPosition;
+        if(!queueTask){
+            currentActiveTaskName = taskName;
+        }
     }
 
     //Method to expand all groups(AKA Our Tasks)
@@ -296,16 +289,21 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void clearAllTasks(){ //Clear all tasks and update the ExpandableListView accordingly
+    private void clearAllTasks(){
+        //Clear all tasks and update the ExpandableListView accordingly
         patientTasks.clear();
-        _taskList.clear();
+        _queuedTaskList.clear();
+
+        clearCurrentTaskInView();
+        currentActiveTaskName = null;
 
         if(myListAdapter!=null){
             myListAdapter.notifyDataSetChanged();
         }
     }
 
-    private boolean updateTask(String taskName, String taskStatus, String distFromCurrentLoc){ //Updates a tasks HeaderInfo
+    private boolean updateTask(String taskName, String taskStatus, String distFromCurrentLoc){
+        //Updates a tasks HeaderInfo
         //Check the hash map if the task already exists
         HeaderInfo headerInfo = patientTasks.get(taskName);
 
@@ -320,10 +318,88 @@ public class MainActivity extends AppCompatActivity {
             }
 
             patientTasks.put(taskName,headerInfo);
+
+            if(currentActiveTaskName==taskName){
+                updateCurrentActiveTaskView(headerInfo);
+            }
+
             return true;
         }
 
         return false;
+    }
+
+
+    private void getAndSetNextTask(){
+
+        try{
+            HeaderInfo info = _queuedTaskList.get(0);
+            currentActiveTaskName = info.getName();
+
+            patientTasks.remove(currentActiveTaskName);
+            _queuedTaskList.remove(0);
+
+            updateCurrentActiveTaskView(info);
+            myListAdapter.notifyDataSetChanged();
+        }
+        catch(IndexOutOfBoundsException o){
+            Log.i(o.toString(), "No more queued tasks");
+        }
+    }
+
+    private void updateCurrentActiveTaskView(HeaderInfo info){
+
+        //Set the Header
+        TextView heading = (TextView) findViewById(R.id.heading);
+        heading.setText(info.getName().trim());
+        TextView distance = (TextView) findViewById(R.id.distance);
+        distance.setText(info.getDistFromCurrentLoc().trim());
+        TextView taskStatus = (TextView) findViewById(R.id.taskstatus);
+        taskStatus.setText(info.getTaskStatus().trim());
+
+        //For now we assume tasks will only have one detail object so we get and set the values at index 0
+
+        try{
+
+            DetailInfo details = info.getDetailList().get(0);
+
+            //Set the Details
+            TextView doctor = (TextView) findViewById(R.id.doctor);
+            doctor.setText(getResources().getString(R.string.doctor) + details.getDoctorName().trim());
+
+            TextView taskPurpose = (TextView) findViewById(R.id.taskpurpose);
+            taskPurpose.setText(getResources().getString(R.string.purpose) + details.getTaskPurpose().trim());
+
+            TextView duration = (TextView) findViewById(R.id.duration);
+            duration.setText(getResources().getString(R.string.duration) + details.getDuration().trim());
+
+            TextView otherdetails = (TextView) findViewById(R.id.otherdetails);
+            otherdetails.setText(getResources().getString(R.string.details) + details.getOtherDetails().trim());
+        }
+        catch(IndexOutOfBoundsException o){
+            Log.e(o.toString(), "HeaderInfo doesnt contain DetailInfo at index 0 of its detailsList");
+        }
+    }
+
+    private void clearCurrentTaskInView(){//Only handles clearing the view of text, Clears the CurrentActiveTask View
+        TextView heading = (TextView) findViewById(R.id.heading);
+        heading.setText("");
+        TextView distance = (TextView) findViewById(R.id.distance);
+        distance.setText("");
+        TextView taskStatus = (TextView) findViewById(R.id.taskstatus);
+        taskStatus.setText("");
+
+        TextView doctor = (TextView) findViewById(R.id.doctor);
+        doctor.setText("");
+
+        TextView taskPurpose = (TextView) findViewById(R.id.taskpurpose);
+        taskPurpose.setText("");
+
+        TextView duration = (TextView) findViewById(R.id.duration);
+        duration.setText("");
+
+        TextView otherdetails = (TextView) findViewById(R.id.otherdetails);
+        otherdetails.setText("");
     }
 }
 

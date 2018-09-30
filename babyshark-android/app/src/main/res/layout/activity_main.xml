@@ -49,17 +49,89 @@
             android:layout_height="68dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"/>
+            <TableLayout
+                android:weightSum="2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TableRow>
+                    <TextView
+                        android:textStyle="italic"
+                        android:paddingLeft="10dp"
+                        android:paddingStart="10dp"
+                        android:layout_weight="1"
+                        android:layout_width="0dip"
+                        android:id="@+id/heading"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_weight="1"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:id="@+id/distance"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:paddingLeft="10dp"
+                        android:paddingStart="10dp"
+                        android:layout_width="0dip"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="0dip"
+                        android:textAlignment="center"
+                        android:id="@+id/taskstatus"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </TableRow>
+            </TableLayout>
 
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/doctor"
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/taskpurpose"
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/doctor"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/duration"
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/taskpurpose"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/otherdetails"
+                android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/duration"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </RelativeLayout>
 
         <!-- The ExpandableListView Below is what consists of the Sliding Panel -->
         <ExpandableListView
@@ -67,7 +139,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:groupIndicator="@null"></ExpandableListView>
+            android:groupIndicator="@null">
+        </ExpandableListView>
 
     </LinearLayout>
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>
