@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_settings3: //Show Payment Options Button
 
-                ShowPopupMenu(R.layout.payment_hardcodedview);
+//                ShowPopupMenu(R.layout.payment_hardcodedview);
+                setContentView(R.layout.payment_hardcodedview);
                 return true;
         }
 
@@ -87,9 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
         currentViewedTask.showAtLocation(findViewById(R.id.sliding_layout), Gravity.BOTTOM, 0, 0);
     }
-
-    WifiManager wifiManager;
-    List<ScanResult> results;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

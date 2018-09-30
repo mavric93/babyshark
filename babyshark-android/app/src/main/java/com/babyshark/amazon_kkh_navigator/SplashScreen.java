@@ -11,7 +11,7 @@ import android.view.View;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private static int SPLASH_TIME = 1000; // 4 seconds
+    private static int SPLASH_TIME = 100; // 0.1 seconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
