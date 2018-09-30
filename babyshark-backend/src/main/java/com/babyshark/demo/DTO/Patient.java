@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "Patients")
@@ -21,4 +22,7 @@ public class Patient {
     @Setter
     private int age = 10;
 
+    @Getter
+    @Setter
+    private List<Appointment> appointments;
 }
