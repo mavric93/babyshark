@@ -2,6 +2,7 @@ package com.babyshark.amazon_kkh_navigator;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -93,12 +94,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        mContext = getApplicationContext();
+        mActivity = MainActivity.this;
+
         super.onCreate(savedInstanceState);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
 
         if (actionBar != null) {
-            actionBar.setTitle(R.string.main_activity);
-            actionBar.setCustomView(R.layout.actionbar_custom);
+            LayoutInflater inflator = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflator.inflate(R.layout.actionbar_custom, null);
+            Resources res = (Resources) getResources();
+            TextView textview = view.findViewById(R.id.actionbar_title);
+            textview.setText(res.getString(R.string.main_activity));
+
+            actionBar.setCustomView(view);
+
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayShowCustomEnabled(true);
             actionBar.setDisplayUseLogoEnabled(false);
@@ -109,9 +119,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
-
-        mContext = getApplicationContext();
-        mActivity = MainActivity.this;
 
         HardCodedTaskDataInit();
 

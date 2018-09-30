@@ -94,6 +94,7 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:paddingTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -135,6 +136,7 @@
 
         <!-- The ExpandableListView Below is what consists of the Sliding Panel -->
         <ExpandableListView
+            android:paddingTop="10dp"
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
