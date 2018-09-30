@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jsibbold.zoomage.ZoomageView;
+
 import java.util.List;
 
 public class Navigation {
@@ -21,7 +23,7 @@ public class Navigation {
     List<ScanResult> results;
     WifiManager wifiManager;
     TextView tv;
-    ImageView currMap;
+    ZoomageView currMap;
 
     Button btn_level1;
     Button btn_level2;

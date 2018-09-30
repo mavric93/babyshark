@@ -17,14 +17,29 @@
 
     <!-- MAIN CONTENT -->
     <android.support.constraint.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/main_activity_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <!--<ImageView-->
+            <!--android:id="@+id/indoor_map_view"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/level1" />-->
+
+        <com.jsibbold.zoomage.ZoomageView
             android:id="@+id/indoor_map_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            app:zoomage_animateOnReset="true"
+            app:zoomage_autoCenter="true"
+            app:zoomage_autoResetMode="UNDER"
+            app:zoomage_maxScale="8"
+            app:zoomage_minScale="0.6"
+            app:zoomage_restrictBounds="false"
+            app:zoomage_translatable="true"
+            app:zoomage_zoomable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:src="@drawable/level1" />
 
         <Button
@@ -123,9 +138,9 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:paddingTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp">
 
             <TextView
                 android:id="@+id/doctor"
@@ -165,12 +180,12 @@
 
         <!-- The ExpandableListView Below is what consists of the Sliding Panel -->
         <ExpandableListView
-            android:paddingTop="10dp"
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:groupIndicator="@null"></ExpandableListView>
+            android:groupIndicator="@null"
+            android:paddingTop="10dp"></ExpandableListView>
 
     </LinearLayout>
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>
