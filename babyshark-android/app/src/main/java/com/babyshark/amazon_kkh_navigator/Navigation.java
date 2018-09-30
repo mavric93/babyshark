@@ -29,9 +29,6 @@ public class Navigation {
     Button btn_level2;
     Button btn_level3;
 
-    int currX = 0;
-    int currY = 0;
-
     public Navigation(Activity activity) {
         this.activity = activity;
 

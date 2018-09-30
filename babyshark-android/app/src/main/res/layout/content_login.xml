@@ -4,70 +4,120 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ADD8E6"
+    android:background="#FFFFFF"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Login"
     tools:showIn="@layout/activity_login">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingTop="56dp"
+        android:paddingRight="24dp">
 
-        <TextView
-            android:padding="20dp"
-            android:id="@+id/info1"
-            android:text="Please Provide Your NRIC"
-            android:textSize="25dp"
-            android:textAlignment="center"
+        <!--<TextView-->
+        <!--android:padding="20dp"-->
+        <!--android:id="@+id/info1"-->
+        <!--android:text="Please Provide Your NRIC"-->
+        <!--android:textSize="25dp"-->
+        <!--android:textAlignment="center"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
+
+        <!--<TextView-->
+        <!--android:textStyle="italic"-->
+        <!--android:padding="20dp"-->
+        <!--android:layout_below="@+id/info1"-->
+        <!--android:textSize="25sp"-->
+        <!--android:textAlignment="center"-->
+        <!--android:text="This allows us to fetch your\n information from the system"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
+
+        <!--<EditText-->
+        <!--android:layout_margin="1dp"-->
+        <!--android:background="#3000"-->
+        <!--android:id="@+id/nric"-->
+        <!--android:textSize="25dp"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:textAlignment="center"-->
+        <!--android:hint="NRIC Here"-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="60dp" />-->
+
+        <!--<EditText-->
+        <!--android:background="#3000"-->
+        <!--android:layout_margin="1dp"-->
+        <!--android:id="@+id/contact"-->
+        <!--android:layout_below="@id/nric"-->
+        <!--android:textSize="25dp"-->
+        <!--android:textAlignment="center"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:hint="Contact Number"-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="60dp" />-->
+
+        <!--<Button-->
+        <!--android:id="@+id/login"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:textStyle="italic"-->
+        <!--android:text="Login"-->
+        <!--android:textSize="25dp"-->
+        <!--android:textColor="	#E6E6FA"-->
+        <!--android:background="@drawable/roundedbutton"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_below="@id/contact"-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="100dp" />-->
+
+        <ImageView
+            android:layout_width="268dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/kkh_hospital_logo_small" />
+
+        <!--  Email Label -->
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-        <TextView
-            android:textStyle="italic"
-            android:padding="20dp"
-            android:layout_below="@+id/info1"
-            android:textSize="25dp"
-            android:textAlignment="center"
-            android:text="This allows us to fetch your\n information from the system"
+            <EditText
+                android:id="@+id/nric"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="NRIC"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--  Password Label -->
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-        <EditText
-            android:layout_margin="1dp"
-            android:background="#3000"
-            android:id="@+id/nric"
-            android:textSize="25dp"
-            android:layout_centerInParent="true"
-            android:textAlignment="center"
-            android:hint="NRIC Here"
-            android:layout_width="300dp"
-            android:layout_height="60dp" />
+            <EditText
+                android:id="@+id/contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contact"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:background="#3000"
-            android:layout_margin="1dp"
-            android:id="@+id/contact"
-            android:layout_below="@id/nric"
-            android:textSize="25dp"
-            android:textAlignment="center"
-            android:layout_centerInParent="true"
-            android:hint="Contact Number"
-            android:layout_width="300dp"
-            android:layout_height="60dp" />
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_login"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:padding="12dp"
+            android:text="Login" />
 
-        <Button
-            android:id="@+id/login"
-            android:layout_margin="10dp"
-            android:textStyle="italic"
-            android:text="Login"
-            android:textSize="25dp"
-            android:textColor="	#E6E6FA"
-            android:background="@drawable/roundedbutton"
-            android:layout_centerInParent="true"
-            android:layout_below="@id/contact"
-            android:layout_width="300dp"
-            android:layout_height="100dp" />
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

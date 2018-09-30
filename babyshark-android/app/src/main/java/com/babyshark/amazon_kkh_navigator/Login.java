@@ -39,7 +39,7 @@ public class Login extends AppCompatActivity {
             actionBar.setIcon(R.drawable.kkh_logo);
         }
 
-        Button login = findViewById(R.id.login);
+        Button login = findViewById(R.id.btn_login);
 
         if(login!=null){
             login.setOnClickListener(new View.OnClickListener() {
