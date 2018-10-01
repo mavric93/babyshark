@@ -3,14 +3,13 @@ package com.babyshark.amazon_kkh_navigator;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-public class SlidePanelListAdapter extends BaseExpandableListAdapter{
+public class SlidePanelListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private ArrayList<HeaderInfo> deptList;
@@ -32,6 +31,7 @@ public class SlidePanelListAdapter extends BaseExpandableListAdapter{
         return childPosition;
     }
 
+    // Child of each collapsible row
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
                              View view, ViewGroup parent) {
@@ -44,17 +44,17 @@ public class SlidePanelListAdapter extends BaseExpandableListAdapter{
             view = infalInflater.inflate(R.layout.child_row, null);
         }
 
-        TextView doctor = (TextView) view.findViewById(R.id.doctor);
-        doctor.setText(context.getResources().getString(R.string.doctor) + detailInfo.getDoctorName().trim());
+        TextView doctor = view.findViewById(R.id.doctor);
+        doctor.setText(detailInfo.getDoctorName().trim());
 
-        TextView taskPurpose = (TextView) view.findViewById(R.id.taskpurpose);
-        taskPurpose.setText(context.getResources().getString(R.string.purpose) + detailInfo.getTaskPurpose().trim());
+        TextView taskPurpose = view.findViewById(R.id.taskpurpose);
+        taskPurpose.setText(detailInfo.getTaskPurpose().trim());
 
-        TextView duration = (TextView) view.findViewById(R.id.duration);
-        duration.setText(context.getResources().getString(R.string.duration) + detailInfo.getDuration().trim());
+        TextView duration = view.findViewById(R.id.duration);
+        duration.setText(detailInfo.getDuration().trim());
 
-        TextView otherdetails = (TextView) view.findViewById(R.id.otherdetails);
-        otherdetails.setText(context.getResources().getString(R.string.details) + detailInfo.getOtherDetails().trim());
+        TextView otherdetails = view.findViewById(R.id.otherdetails);
+        otherdetails.setText(detailInfo.getOtherDetails().trim());
 
 
         return view;
@@ -94,13 +94,13 @@ public class SlidePanelListAdapter extends BaseExpandableListAdapter{
             view = inf.inflate(R.layout.group_heading, null);
         }
 
-        TextView heading = (TextView) view.findViewById(R.id.heading);
+        TextView heading = view.findViewById(R.id.heading);
         heading.setText(headerInfo.getName().trim());
 
-        TextView distance = (TextView) view.findViewById(R.id.distance);
+        TextView distance = view.findViewById(R.id.distance);
         distance.setText(headerInfo.getDistFromCurrentLoc().trim());
 
-        TextView taskStatus = (TextView) view.findViewById(R.id.taskstatus);
+        TextView taskStatus = view.findViewById(R.id.task_status);
         taskStatus.setText(headerInfo.getTaskStatus().trim());
 
         return view;

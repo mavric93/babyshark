@@ -17,19 +17,9 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
-
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiManager;
-
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -190,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean removeTask(String taskName) {
 
-        if(taskName==currentActiveTaskName){
+        if (taskName == currentActiveTaskName) {
             getAndSetNextTask();
         }
 
@@ -212,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private void addTask(String taskName, String taskStatus, String distFromCurrentLoc, String taskPurpose, String doctorName, String duration, String otherDetails, int index, boolean queueTask) {
+    private void addTask(String taskName, String distFromCurrentLoc, String taskStatus, String doctorName, String taskPurpose, String duration, String otherDetails, int index, boolean queueTask) {
 
         //distFromCurrentLoc is a value of the distance from the current task location to the next.
         //This Method is also responsible for adding DetailInfo to a Task
@@ -230,11 +220,11 @@ public class MainActivity extends AppCompatActivity {
             patientTasks.put(taskName, headerInfo);
 
             if (index < 0 || index > _queuedTaskList.size() - 1) {
-                if(queueTask){
+                if (queueTask) {
                     _queuedTaskList.add(headerInfo);
                 }
             } else {
-                if(queueTask){
+                if (queueTask) {
                     _queuedTaskList.add(index, headerInfo);
                 }
             }
@@ -259,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
             patientTasks.put(taskName, headerInfo);
         }
 
-        if(!queueTask){
+        if (!queueTask) {
             currentActiveTaskName = taskName;
         }
     }
@@ -280,16 +270,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    public void initNavigation(){
+
+    public void initNavigation() {
         Navigation navigation = new Navigation(this);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
-    private void clearAllTasks(){
+    private void clearAllTasks() {
         //Clear all tasks and update the ExpandableListView accordingly
         patientTasks.clear();
         _queuedTaskList.clear();
@@ -297,29 +289,29 @@ public class MainActivity extends AppCompatActivity {
         clearCurrentTaskInView();
         currentActiveTaskName = null;
 
-        if(myListAdapter!=null){
+        if (myListAdapter != null) {
             myListAdapter.notifyDataSetChanged();
         }
     }
 
-    private boolean updateTask(String taskName, String taskStatus, String distFromCurrentLoc){
+    private boolean updateTask(String taskName, String taskStatus, String distFromCurrentLoc) {
         //Updates a tasks HeaderInfo
         //Check the hash map if the task already exists
         HeaderInfo headerInfo = patientTasks.get(taskName);
 
         if (headerInfo != null) {
 
-            if(headerInfo.getTaskStatus()!=taskStatus){
+            if (headerInfo.getTaskStatus() != taskStatus) {
                 headerInfo.setTaskStatus(taskStatus);
             }
 
-            if(headerInfo.getDistFromCurrentLoc()!=distFromCurrentLoc){
+            if (headerInfo.getDistFromCurrentLoc() != distFromCurrentLoc) {
                 headerInfo.setDistFromCurrentLoc(distFromCurrentLoc);
             }
 
-            patientTasks.put(taskName,headerInfo);
+            patientTasks.put(taskName, headerInfo);
 
-            if(currentActiveTaskName==taskName){
+            if (currentActiveTaskName == taskName) {
                 updateCurrentActiveTaskView(headerInfo);
             }
 
@@ -330,9 +322,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void getAndSetNextTask(){
+    private void getAndSetNextTask() {
 
-        try{
+        try {
             HeaderInfo info = _queuedTaskList.get(0);
             currentActiveTaskName = info.getName();
 
@@ -341,52 +333,51 @@ public class MainActivity extends AppCompatActivity {
 
             updateCurrentActiveTaskView(info);
             myListAdapter.notifyDataSetChanged();
-        }
-        catch(IndexOutOfBoundsException o){
+        } catch (IndexOutOfBoundsException o) {
             Log.i(o.toString(), "No more queued tasks");
         }
     }
 
-    private void updateCurrentActiveTaskView(HeaderInfo info){
+    private void updateCurrentActiveTaskView(HeaderInfo info) {
 
         //Set the Header
         TextView heading = (TextView) findViewById(R.id.heading);
         heading.setText(info.getName().trim());
         TextView distance = (TextView) findViewById(R.id.distance);
         distance.setText(info.getDistFromCurrentLoc().trim());
-        TextView taskStatus = (TextView) findViewById(R.id.taskstatus);
+        TextView taskStatus = (TextView) findViewById(R.id.task_status);
         taskStatus.setText(info.getTaskStatus().trim());
 
         //For now we assume tasks will only have one detail object so we get and set the values at index 0
 
-        try{
+        try {
 
             DetailInfo details = info.getDetailList().get(0);
 
             //Set the Details
-            TextView doctor = (TextView) findViewById(R.id.doctor);
-            doctor.setText(getResources().getString(R.string.doctor) + details.getDoctorName().trim());
+            TextView doctor = findViewById(R.id.doctor);
+//            doctor.setText(getResources().getString(R.string.doctor) + details.getDoctorName().trim());
+            doctor.setText(details.getDoctorName().trim());
 
-            TextView taskPurpose = (TextView) findViewById(R.id.taskpurpose);
-            taskPurpose.setText(getResources().getString(R.string.purpose) + details.getTaskPurpose().trim());
+            TextView taskPurpose = findViewById(R.id.taskpurpose);
+            taskPurpose.setText(details.getTaskPurpose().trim());
 
-            TextView duration = (TextView) findViewById(R.id.duration);
-            duration.setText(getResources().getString(R.string.duration) + details.getDuration().trim());
+            TextView duration = findViewById(R.id.duration);
+            duration.setText(details.getDuration().trim());
 
-            TextView otherdetails = (TextView) findViewById(R.id.otherdetails);
-            otherdetails.setText(getResources().getString(R.string.details) + details.getOtherDetails().trim());
-        }
-        catch(IndexOutOfBoundsException o){
+            TextView otherdetails = findViewById(R.id.otherdetails);
+            otherdetails.setText(details.getOtherDetails().trim());
+        } catch (IndexOutOfBoundsException o) {
             Log.e(o.toString(), "HeaderInfo doesnt contain DetailInfo at index 0 of its detailsList");
         }
     }
 
-    private void clearCurrentTaskInView(){//Only handles clearing the view of text, Clears the CurrentActiveTask View
+    private void clearCurrentTaskInView() {//Only handles clearing the view of text, Clears the CurrentActiveTask View
         TextView heading = (TextView) findViewById(R.id.heading);
         heading.setText("");
         TextView distance = (TextView) findViewById(R.id.distance);
         distance.setText("");
-        TextView taskStatus = (TextView) findViewById(R.id.taskstatus);
+        TextView taskStatus = (TextView) findViewById(R.id.task_status);
         taskStatus.setText("");
 
         TextView doctor = (TextView) findViewById(R.id.doctor);

@@ -25,7 +25,7 @@ public class ScanQR extends AppCompatActivity {
         setSupportActionBar(toolbar);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
 
-        if(actionBar!=null){
+        if (actionBar != null) {
             LayoutInflater inflator = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflator.inflate(R.layout.actionbar_custom, null);
             Resources res = (Resources) getResources();
@@ -42,7 +42,7 @@ public class ScanQR extends AppCompatActivity {
 
         Button scanner = findViewById(R.id.scanner);
 
-        if(scanner!=null){
+        if (scanner != null) {
             scanner.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -53,7 +53,7 @@ public class ScanQR extends AppCompatActivity {
         }
     }
 
-    private void ScanQRCode(){
+    private void ScanQRCode() {
 
         Intent login_intent = new Intent(ScanQR.this, Login.class);
         startActivity(login_intent);

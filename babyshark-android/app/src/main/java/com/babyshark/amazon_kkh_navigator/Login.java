@@ -24,7 +24,7 @@ public class Login extends AppCompatActivity {
         setSupportActionBar(toolbar);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
 
-        if(actionBar!=null){
+        if (actionBar != null) {
             LayoutInflater inflator = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflator.inflate(R.layout.actionbar_custom, null);
             Resources res = (Resources) getResources();
@@ -41,7 +41,7 @@ public class Login extends AppCompatActivity {
 
         Button login = findViewById(R.id.btn_login);
 
-        if(login!=null){
+        if (login != null) {
             login.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -52,7 +52,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    private void login(){
+    private void login() {
 
         Intent mainactivity_intent = new Intent(Login.this, MainActivity.class);
         startActivity(mainactivity_intent);
